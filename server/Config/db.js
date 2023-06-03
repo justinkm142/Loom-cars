@@ -4,7 +4,7 @@ dotenv.config()
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect("mongodb+srv://admin-evara:"+process.env.MONGODB_PASSWORD+"@evara-ecom.il0m4vi.mongodb.net/LoomCarDB");
+    const conn = await mongoose.connect(process.env.MONGO_URL);
     console.log(
       'Connected To Mongodb Database'
     );

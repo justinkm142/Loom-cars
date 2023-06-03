@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../utils/axiosInterceptor_user";
 import { useState } from "react";
 
 function LoginWindow(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [navi, setNavi] = useState(-1)
+
 
   //navigation
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ function LoginWindow(props) {
 
       let serverRespose = await axios({
         method: "post",
-        url: "http://localhost:3000/api/v1/user/signin",
+        url: "/signin",
         data: {
           email: email,
           password: password,
@@ -41,13 +43,15 @@ function LoginWindow(props) {
       });
       if (serverRespose.data.message == "sucess") {
         localStorage.setItem("token", serverRespose.data.token);
-        navigate("/user/home");
+        navigate(-1);
+        setNavi(-1)
       } else {
         setError1("Please re-try after some time");
       }
     } catch (err) {
       console.log(err.response);
       setError1(err.response.data.error);
+      setNavi(navi-1)
     }
   };
 
@@ -123,12 +127,12 @@ function LoginWindow(props) {
               <hr className=" col-span-6  border-1 border-zinc-800"></hr>
 
               <div className="col-span-6 sm:flex sm:items-center mx-auto sm:gap-4">
-                <button type="button"
+                {/* <button type="button"
                   className="ms-4 mt-5 inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium 
               text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 >
                   Gmail Login
-                </button>
+                </button> */}
                 <button type="button"
                   className=" ms-4 mt-5 inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium 
               text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"

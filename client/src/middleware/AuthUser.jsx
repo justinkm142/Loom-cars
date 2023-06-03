@@ -41,7 +41,8 @@ export const UserDetails = ({children})=>{
         let userId = decoded.userId;
         let name= decoded.user;
         let email= decoded.email;
-        dispach(update({name,email,userId}))
+        let phone = decoded.phone;
+        dispach(update({name,email,userId,phone}))
     }
     return children;
 

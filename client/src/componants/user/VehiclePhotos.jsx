@@ -18,11 +18,11 @@ function VehiclePhotos(props) {
       <div 
         className=" mx-auto my-auto rounded-full cursor-pointer">
         <p className='p-4 align-middle text-4xl '></p>
-    </div>
+      </div>
 
       }
      
-      <img src={props.photo[0]?.images[index]?.image_url} alt="car" className="h-full" />
+      <img src={props.photo[0]?.images[index]?.image_url} alt="car" className="h-full " />
       
       
       

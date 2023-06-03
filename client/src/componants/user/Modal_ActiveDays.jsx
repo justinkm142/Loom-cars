@@ -1,11 +1,11 @@
 import React, {useState,useEffect} from 'react'
 import Datepicker from "react-tailwindcss-datepicker"; 
 import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios'
+import axios from '../../utils/axiosInterceptor_user'
 import {CgSpinner} from 'react-icons/cg'
 
 
-function ActiveDays_modal({visible,carId,modalClose,userId,getCarDetails}) {
+function Modal_ActiveDays({visible,carId,modalClose,userId,getCarDetails}) {
 
   const [loading,setLoading] =useState(false)
   const [newDate, setNewDate] = useState({startDate: new Date(), endDate: new Date().setMonth(11) });
@@ -27,10 +27,10 @@ function ActiveDays_modal({visible,carId,modalClose,userId,getCarDetails}) {
     try {
       let serverRespose = await axios({
         method: "post",
-        url: "http://localhost:3000/api/v1/user/activeDays",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
+        url: "/activeDays",
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        // },
         data: {
           newDate,
         vehicleId: carId
@@ -49,7 +49,11 @@ function ActiveDays_modal({visible,carId,modalClose,userId,getCarDetails}) {
         setError1("Please re-try after some time");
       }
     } catch (error) {
-      
+      console.log(error)
+      if (error.response.status == 401) {
+        localStorage.clear();
+        navigate("/user/login");
+      }
     }
 
 
@@ -121,4 +125,4 @@ function ActiveDays_modal({visible,carId,modalClose,userId,getCarDetails}) {
   )
 }
 
-export default ActiveDays_modal
+export default Modal_ActiveDays

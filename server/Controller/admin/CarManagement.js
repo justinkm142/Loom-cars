@@ -49,10 +49,15 @@ export const verifyCarStatausUpdate = async (req,res)=>{
 
 export const getCarList =async (req,res)=>{
   try {
+    const {page} = req.query;
+
+    let result = await CarModel.find({isVerified:true}).skip(2*(page-1)).limit(2).exec();
     
-    let result = await CarModel.find({isVerified:true}).exec();
-  
-    res.status(201).send({message: "sucess", result })
+    const pageCount = await CarModel.find({isVerified:true}).count();
+
+    const totalDocument = pageCount%2==0 ? pageCount/2: Math.floor(pageCount/2)+1
+console.log("dbvsb", totalDocument)
+    res.status(201).send({message: "sucess", result, totalDocument })
 
   } catch (error) {
     console.log(error)

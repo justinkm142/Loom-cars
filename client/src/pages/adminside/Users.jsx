@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Tables from '../../componants/admin/Tables.jsx'
 import Pagination from '../../componants/admin/Pagination.jsx'
-import axios from "axios";
+import axios from "../../utils/axiosInterceptor_admin";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
@@ -13,24 +13,30 @@ function Users() {
   const [userList, setUserList]=useState([]);
   const [error1,setError1]=useState(null);
   const [nameFilter, setNameFilter] = useState("asc")
+  const [page , setPage] = useState(1);
+  const [totalDocument , setTotalDocument] = useState(0)
 
   let navigate = useNavigate();
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [page]);
 
   let fetchUserData = async () => {
     try {
       let serverRespose = await axios({
         method: "get",
-        url: "http://localhost:3000/api/v1/admin/users",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("admin_token"),
+        url: "/users",
+        params:{
+          page
         },
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("admin_token"),
+        // },
       });
       if (serverRespose.data.message == "sucess") {
         setUserList(serverRespose.data.result);
+        setTotalDocument(serverRespose.data.totalDocument)
       } else {
         setError1("Please re-try after some time");
       }
@@ -48,10 +54,10 @@ function Users() {
     try {
       let serverRespose = await axios({
         method: "patch",
-        url: "http://localhost:3000/api/v1/admin/users",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("admin_token"),
-        },
+        url: "/users",
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("admin_token"),
+        // },
         data: {
           userId,
           status,
@@ -83,7 +89,7 @@ function Users() {
       
       <Tables users={userList} changeUserStatus={changeUserStatus} />
       <div className='mt-10'>
-      <Pagination />
+      <Pagination setPage = {setPage} totalDocument = {totalDocument} page={page} />
       </div>
 
       </div>

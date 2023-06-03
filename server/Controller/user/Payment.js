@@ -21,7 +21,7 @@ export const paymentConfirm = async (req,res) =>{
                     { $set: { paymentStatus: "success" } }
                      );
 
-      return res.status(200).json({ message: "sucess", data: result });       
+      return res.status(200).json({ message: "sucess", data: result,bookingId:bookingId });       
     } catch (error) {
       console.log(error)
       return res.status(500).json({message: "error", error: error });

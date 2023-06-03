@@ -1,12 +1,24 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {AiOutlineMenu} from 'react-icons/ai'
+import {UserContext} from '../../pages/userside/Outline'
 
 
 
-function UserNavbar() {
-
+function UserNavbar(props) {
+  const {userDetails, setUserDeatils} = useContext(UserContext);
   const name = useSelector((state)=>state.user.name)
+  // useEffect(()=>{
+  //   let token = localStorage.getItem("token");
+  //   if(!token){
+  //     setUserDeatils({})
+  //   }else {
+  //     setUserDeatils({})
+  //   }
+
+  // },[])
+  console.log("user Details in nav bar " , userDetails)
   return (
     <header
       aria-label="Site Header"
@@ -15,15 +27,24 @@ function UserNavbar() {
       <div className=" max-w-screen-xl ">
         <div className="flex h-16 items-center justify-between">
           <div className="flex md:items-center ">
-            <img
+            <div className="text-white p-4 cursor-pointer" onClick={()=>props.setModal(true)}>
+            
+            < AiOutlineMenu size={30} />
+
+            </div>
+           
+            {/* <img
+              onClick={()=>props.setModal(true)}
               className="py-6 px-6 mt-1 cursor-pointer h-16 hidden md:block"
               src="../../public/photos/menu1.png"
-            ></img>
-            <Link to='/user/home'>   
+            ></img> */}
+            <Link to='/user/home' >   
             <img
               className="py-3 mt-1 cursor-pointer h-14 "
               src="../../public/photos/Logo.png"
             ></img>
+
+
             
             </Link>
 
@@ -37,9 +58,11 @@ function UserNavbar() {
               <div className="hidden sm:flex">
                 <Link
                   to="/user/host"
+                  target="_blank" rel="noopener noreferrer"
                   className="rounded-3xl bg-white px-5 py-2.5 text-sm font-medium md:text-[18px] text-black shadow"
                 >
-                  Become a Host
+                  {userDetails.isHosted ? "Show my Cars": "Become a Host"}
+                  
                 </Link>
               </div>
 

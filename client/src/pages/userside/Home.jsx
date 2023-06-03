@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import HeroSection from '../../componants/user/HeroSection'
 import ContentHead from '../../componants/user/ContentHead'
-import axios from 'axios'
+import axios from '../../utils/axiosInterceptor_user'
 
 
 
@@ -11,26 +11,30 @@ function Home() {
   const [carList,setCarList] = useState([]);
   const [error1,setError1] = useState('');
   const [filter, setFilter] =useState('ALL');
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(0);
+  const [limit, setLimit] = useState(4);
+  const [pageCount, setPageCount] = useState(0)
 
   useEffect(()=>{
     getProductData(filter)
-  },[])
+  },[pageNumber,limit,filter])
 
   const getProductData = async(filter)=>{
     try {
       let serverRespose = await axios({
         method: "get",
-        url: "http://localhost:3000/api/v1/user/",
+        url: "/",
         params:{
           filter:filter,
-          pageNumber: pageNumber
+          pageNumber: pageNumber,
+          limit:limit
         },
       });
       if (serverRespose.data.message == "sucess") {
         setCarList((pre)=>{
           return [...serverRespose.data.result]
         });
+        setPageCount(serverRespose.data.pageCount)
       } else {
         setError1("Please re-try after some time");
       }
@@ -44,7 +48,7 @@ function Home() {
   return (
     <div>
       <HeroSection />
-      <ContentHead carList={carList} setFilter={setFilter} getProductData={getProductData} />
+      <ContentHead carList={carList} setFilter={setFilter} getProductData={getProductData} setPageNumber={setPageNumber} pageNumber={pageNumber} pageCount={pageCount} />
       
     </div>
   )

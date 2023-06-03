@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import ContentHead from '../../componants/user/ContentHead'
-import axios from 'axios'
+import axios from '../../utils/axiosInterceptor_user'
 import Datepicker from "react-tailwindcss-datepicker"; 
 import { useSearchParams } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ function Search() {
         try {
           let serverRespose = await axios({
             method: "get",
-            url: "http://localhost:3000/api/v1/user/search",
+            url: "/search",
             params:{
               filter:filter,
               pageNumber: pageNumber,

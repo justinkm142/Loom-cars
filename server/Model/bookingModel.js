@@ -49,6 +49,9 @@ const bookingSchema = new Schema({
   amount: {
     type: Number,
     required:true,
+  },
+  OTP:{
+    type:Number
   }
 
 }, { timestamps: true })

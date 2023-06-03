@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../utils/axiosInterceptor_admin";
 import { useState } from "react";
 
 function LoginWindow() {
@@ -17,7 +17,7 @@ function LoginWindow() {
 
       let serverRespose = await axios({
         method: "post",
-        url: "http://localhost:3000/api/v1/admin/login",
+        url: "/login",
         data: {
           email: email,
           password: password,

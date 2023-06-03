@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {MdDelete} from 'react-icons/md'
 import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios';
+import axios from '../../utils/axiosInterceptor_user'
 import jwt_decode from "jwt-decode";
 
 
@@ -85,7 +85,7 @@ function AddVehicle(props) {
         props.setLoading(true)
         let serverRespose = await axios({
           method: "post",
-          url: "http://localhost:3000/api/v1/user/hostVehicle",
+          url: "/hostVehicle",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -167,7 +167,7 @@ function AddVehicle(props) {
                 return { ...preValue, ...temp };
               });
 
-              let regex = /^[a-zA-Z-]{3,16}$/;
+              let regex = /^[a-zA-Z0-9-]{3,16}$/;
               let err= !regex.test(e.target.value)
               let temp1={};
               temp1['CarNumberError']=err;
@@ -563,7 +563,7 @@ function AddVehicle(props) {
 
         <div className="grid grid-cols-2">
           <button
-            onClick={() => navigate('/host')}
+            onClick={() => navigate(-1)}
             className="bg-blue-700 w-1/2 p-3 mt-4 mx-auto rounded-xl hover:bg-blue-500 active:bg-blue-900">
             Cancel
           </button>

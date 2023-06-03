@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
     const result = await UserModel.create({name, email, phone, password})
     let id=result._id.toString()
     
-    let token = jwt.sign({ email:email, user:name, id:id, role:"user" }, "jkm", { expiresIn: "1h" });
+    let token = jwt.sign({ email:email, user:name, id:id, role:"user",phone:phone }, "jkm", { expiresIn: "1h" });
 
     res.status(201).send({message: "sucess",token, ...result, })
     
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
       if(result[0].isBlocked==true){
         return res.status(401).json({ message: "error", error: "Admin blocked you" });
       }
-      let token = jwt.sign({ email: email, user:result[0].name, userId:result[0]._id, role:"user" }, "jkm", { expiresIn: "1h" });
+      let token = jwt.sign({ email: email, user:result[0].name, userId:result[0]._id, role:"user", phone:result[0].phone }, "jkm", { expiresIn: "1h" });
       console.log("login sucessfull");
       return res.status(200).json({ message: "sucess", token: token, data:result[0]});
     } else {
@@ -81,7 +81,6 @@ export const otpLogin = async (req, res) => {
 export const userDetails = async (req, res) => {
   try {
     const { userId } = req.query
-    console.log("the body for user is ", req.query)
 
     let result = await UserModel.find({ _id: userId }).exec();
     if (result.length == 0) {
@@ -95,3 +94,24 @@ export const userDetails = async (req, res) => {
     return res.status(500).json({message: "error", error: "Server Error! Please try after some time" });
   }
 };
+
+export const editUserDetails = async (req,res) =>{
+  try{
+    const data= req.body;
+    let userId = req.body.userId
+    delete data.userId
+
+    console.log("data from user ", data)
+    console.log("data from user ", userId)
+    let result =await UserModel.findByIdAndUpdate(userId,{$set:{...data}},{new:true}).exec();
+
+    console.log("data after update ", result)
+
+
+    return res.status(200).json({ message: "sucess", data:result });
+
+  }catch(err){
+    console.log(err);
+    return res.status(500).json({message: "error", error: "Server Error! Please try after some time" });
+  }
+}

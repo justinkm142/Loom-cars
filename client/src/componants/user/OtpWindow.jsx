@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {BsTelephoneFill} from 'react-icons/bs'
 import OtpInput from 'otp-input-react'
 import {CgSpinner} from 'react-icons/cg'
 import {auth} from "../../config/firebase"
 import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth'
 import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios'
+import axios from '../../utils/axiosInterceptor_user'
 import { useNavigate, Link } from "react-router-dom";
 
 
@@ -16,6 +16,9 @@ function OtpWindow() {
   const [loading1,setLoading1] =useState(false)
   const [phone, setPhone] =useState()
   const [disableInput,setDisableInput] = useState(false)
+  const [disableButton, setDisableButton] = useState(false)
+  const [counter, setCounter] =useState(false)
+  const [count, setCount] = useState(60)
 
   const navigate = useNavigate()
 
@@ -44,7 +47,9 @@ function OtpWindow() {
       setLoading(false)
       toast.success('OTP Sended successfully')
       window.confirmationResult = confirmationResult;
+      setDisableButton(true)
       setDisableInput(true)
+      setCounter(true)
       // ...
     }).catch((error) => {
       setLoading(false)
@@ -54,7 +59,7 @@ function OtpWindow() {
   async function getTokenFromServer(){
     let serverRespose = await axios({
       method: "post",
-      url: "http://localhost:3000/api/v1/user/otplogin",
+      url: "/otplogin",
       data: {
         phone:phone
       },
@@ -84,6 +89,30 @@ function OtpWindow() {
     });
     
   }
+useEffect(()=>{
+ 
+ if(counter==true){
+
+    const interval = setInterval(() => {
+      setCount((prev)=>{
+        return prev - 1 ;
+      })
+    }, 1000);
+    if(count ==0){
+        setCounter(false)
+        setDisableButton(false)
+        setCount((prev)=>{
+          return 60 ;
+        })
+         return () => clearInterval(interval)
+    }else{
+
+      return () => clearInterval(interval)
+    }
+
+  }
+},[count,counter])
+
 
 
   return (
@@ -120,16 +149,42 @@ function OtpWindow() {
       ></input>
 
       }
-      
+
+    {disableButton ?
+
       <button 
       onClick={onSignup}
-      className='bg-blue-600 w-full flex gap-1 items-center
-      justify-center py-2.5 text-white  rounded-sm'>
-        {loading && 
-        <CgSpinner size={20} className='mt-1 animate-spin'/>
-        }
-        <span> Send OTP  </span>
-        </button>
+      disabled
+      className="bg-gray-500 w-full flex gap-1 items-center
+      justify-center py-2.5 text-white  rounded-sm "
+      >
+      {loading && 
+      <CgSpinner size={20} className='mt-1 animate-spin'/>
+      }
+      <span> Send OTP  </span>
+      </button>
+
+
+
+    :
+
+    <button 
+    onClick={onSignup}
+    className=" bg-blue-600 w-full flex gap-1 items-center
+    justify-center py-2.5 text-white  rounded-sm "
+    >
+      {loading && 
+      <CgSpinner size={20} className='mt-1 animate-spin'/>
+      }
+      <span> Send OTP  </span>
+      </button>
+    }
+
+
+    {disableButton ? <p className='text-red-500 text-center'>Resend OTP in {count}</p> : null }
+
+      
+
       <label htmlFor='' className='font-bold text-2xl text-[#828268] text-center '>
         Enter  OTP
       </label>

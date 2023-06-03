@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import VerifyCar from '../../componants/admin/VerifyCar'   
 import { useNavigate } from 'react-router';
-import axios from 'axios';
+import axios from '../../utils/axiosInterceptor_admin';
 import toast, { Toaster } from 'react-hot-toast';
 
 
@@ -20,10 +20,10 @@ function VerifyCars() {
     try {
       let serverRespose = await axios({
         method: "get",
-        url: "http://localhost:3000/api/v1/admin/verifyCars",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("admin_token"),
-        },
+        url: "/verifyCars",
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("admin_token"),
+        // },
       });
       if (serverRespose.data.message == "sucess") {
         setCarList((pre) => {
@@ -46,10 +46,10 @@ function VerifyCars() {
     try {
       let serverRespose = await axios({
         method: "patch",
-        url: "http://localhost:3000/api/v1/admin/verifyCars",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("admin_token"),
-        },
+        url: "/verifyCars",
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("admin_token"),
+        // },
         data: {
           vehicleId,
           status,
@@ -73,7 +73,7 @@ function VerifyCars() {
   };
 
   return (
-    <div className=' w-full'>
+    <div className=' w-full bg-slate-900'>
       {carList.map((data,index)=>{
         return  <VerifyCar carData={data} changeVehicleStatus={changeVehicleStatus} />
       })

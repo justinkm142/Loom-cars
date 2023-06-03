@@ -4,9 +4,17 @@ import { UserModel } from "../../Model/userModel.js";
 
 export const userList = async (req, res) => {
   try {
-    let result = await UserModel.find().exec();
 
-    return res.status(200).json({ message: "sucess", result });
+    const {page} = req.query;
+
+
+
+    let result = await UserModel.find().skip(10*(page-1)).limit(10);
+    const pageCount = await UserModel.find().count();
+
+    const totalDocument = pageCount%10==0 ? pageCount/10: Math.floor(pageCount/10)+1
+
+    return res.status(200).json({ message: "sucess", result, totalDocument });
 
   } catch (err) {
     console.log(err);

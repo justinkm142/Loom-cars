@@ -42,6 +42,10 @@ const userSchema = new Schema({
   walletId: {
     type:String
   },
+  walletBalance: {
+    type:Number,
+    default:0
+  },
   bookings: {
     type:Array
   },

@@ -1,4 +1,5 @@
 import {createBrowserRouter,RouterProvider} from 'react-router-dom';
+import {lazy, Suspense} from 'react'
 
 
 
@@ -12,6 +13,8 @@ import SignoutAdmin from './pages/adminside/Signout';
 import VerifyCars from './pages/adminside/VerifyCars';
 import Cars from './pages/adminside/Cars'
 import Bookings from './pages/adminside/Bookings';
+import BookingDetailsAdmin from './pages/adminside/BookingDetails'
+import Reports from './pages/adminside/Reports'
 
 
 
@@ -21,17 +24,37 @@ import Bookings from './pages/adminside/Bookings';
 import Home from "./pages/userside/Home"
 import Login from "./pages/userside/Login"
 import Signup from './pages/userside/Signup';
-import Host from './pages/userside/Host';
+
 import AddVehicle from './pages/userside/AddVehicle';
-import VehicleDetails from './pages/userside/VehicleDetails';
+import EditVehicle from './pages/userside/EditVehicle';
+
+
+// import Host from './pages/userside/Host';
+const Host = lazy(()=> import('./pages/userside/Host'))
+const VehicleDetails = lazy(()=> import('./pages/userside/VehicleDetails'));
+
+// const MyComponent = lazy(() => import('./MyComponent'));
 import Outline from './pages/userside/Outline'
 import Search from './pages/userside/Search';
+import Logout from './pages/userside/Logout'
+import Profile from './pages/userside/Profile';
+import ProfileHome from './pages/userside/ProfileHome'
+import ProfileBooking from './pages/userside/ProfileBooking';
+import ProfileWallet from './pages/userside/ProfileWallet'
+
+// import ShowBookings from './pages/userside/ShowBookings'
+const ShowBookings = lazy(()=> import('./pages/userside/ShowBookings'));
+
+
+import BookingSuccess from './pages/userside/BookingSuccess'
+import BookingDetails from './pages/userside/BookingDetails'
 
 
 // middleware Auth
 
 import {AuthorizeAdmin, ProtectPath} from './middleware/Auth'
 import {AuthorizeUser, ProtectPathUser , UserDetails} from "./middleware/AuthUser"
+
 
 
 
@@ -55,6 +78,10 @@ const router = createBrowserRouter([
         element: <UsersManagement />,
       },
       {
+        path: "reports",
+        element: <Reports />,
+      },
+      {
         path: "VerifyCars",
         element: <VerifyCars />,
       },
@@ -65,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "bookings",
         element: <Bookings />,
+      },
+      {
+        path: "bookingsDetails/:bookingId",
+        element: <BookingDetailsAdmin />,
       },
       {
         path: "signout",
@@ -78,7 +109,7 @@ const router = createBrowserRouter([
     children:[
       {
         path:"home",
-        element:<UserDetails> <Home/> </UserDetails>
+        element:<UserDetails><Home/></UserDetails>
       },
       {
         path:"login",
@@ -90,19 +121,68 @@ const router = createBrowserRouter([
       },
       {
         path:"host",
-        element:<UserDetails> <Host/> </UserDetails>
+        element:
+        <Suspense fallback={<div className='w-full h-screen flex justify-center items-center bg-slate-400 text-red-600 text-5xl '>Loading...</div>}>
+            <UserDetails><Host/></UserDetails>
+        </Suspense>
+
+      },
+      {
+        path:"showBookings/:vehicleId",
+        element:
+        <Suspense fallback={<div className='w-full h-screen flex justify-center items-center bg-slate-400 text-red-600 text-5xl '>Loading...</div>}>
+
+        <AuthorizeUser><UserDetails><ShowBookings/></UserDetails> </AuthorizeUser>
+        </Suspense>
+
       },
       {
         path:"addVehicle",
-        element:<AuthorizeUser> <UserDetails> <AddVehicle/> </UserDetails> </AuthorizeUser>
+        element:<AuthorizeUser><UserDetails><AddVehicle/></UserDetails> </AuthorizeUser>
+      },
+      {
+        path:"editVehicle/:vehicleId",
+        element:<AuthorizeUser><UserDetails><EditVehicle/></UserDetails> </AuthorizeUser>
       },
       {
         path:"vehicleDetails/:vehicleId",
-        element:  <VehicleDetails/> 
+        element:  
+        <Suspense fallback={<div className='w-full h-screen flex justify-center items-center bg-slate-400 text-red-600 text-5xl '>Loading...</div>}>
+        <VehicleDetails/> 
+        </Suspense>
+
+      },
+      {
+        path:"bookingSuccessfull/:bookingId",
+        element:  <BookingSuccess/> 
+      },
+      {
+        path:"bookingDetails/:bookingId",
+        element:  <BookingDetails/> 
       },
       {
         path:"search",
         element:<Search />
+      },
+      {
+        path:"logout",
+        element:<Logout />
+      },
+      {
+        path:"profile",
+        element:<Profile />,
+        children:[{
+          path:"home",
+          element: <ProfileHome/>
+        },{
+          path:"booking",
+          element: <ProfileBooking/>
+        },{
+          path:"wallet",
+          element: <ProfileWallet/>
+        }
+
+        ]
       }
     ]
   }

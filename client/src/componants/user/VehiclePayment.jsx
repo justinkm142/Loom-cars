@@ -1,10 +1,11 @@
 import React,{useEffect, useState} from 'react'
 import { useSelector } from "react-redux";
-import axios from 'axios';
+import axios from '../../utils/axiosInterceptor_user';
 import Datepicker from "react-tailwindcss-datepicker"; 
 import toast, { Toaster } from 'react-hot-toast';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
+import {userBaseUrl} from '../../utils/API'
 
 
 
@@ -32,6 +33,9 @@ function VehiclePayment(params) {
   const [finalRate,setFinalRate] = useState(0)
   const [paymentMethod,setPaymentMethod] = useState("")
   const [value, setValue] = useState({ startDate: null, endDate: null}); 
+  const [wallet, setWallet]=useState(0);
+  const [walletPayment, setWalletPayment] = useState(false)
+  const [razorPayment, setRazorPayment] = useState(false)
  
     
   const handleValueChange = (newValue) => {
@@ -93,9 +97,13 @@ function VehiclePayment(params) {
                 razorpaySignature: response.razorpay_signature,
             };
 
-            const result = await axios.post("http://localhost:3000/api/v1/user/paymentConfirm", data);
+            const result = await axios.post(`${userBaseUrl}/paymentConfirm`, data);
 
-            alert(result.data);
+            console.log("razror pay output =>",result.data.bookingId )
+
+            toast.success('Vehicle Booked')
+
+            setTimeout(()=>{navigate("/user/bookingSuccessfull/"+result.data.bookingId)}, 2000);
         },
         prefill: {
             name: name,
@@ -128,30 +136,32 @@ function VehiclePayment(params) {
         // props.setLoading(true)
         let serverRespose = await axios({
           method: "post",
-          url: "http://localhost:3000/api/v1/user/booking",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
+          url: "/booking",
+          // headers: {
+          //   Authorization: "Bearer " + localStorage.getItem("token"),
+          // },
           data: {
             carId: vehicleId,
             userId:decoded.userId,
             datesBooked:value,
-            paymentMethod:paymentMethod  ,
+            paymentMethod:{walletPayment:walletPayment, razorPayment:razorPayment },
             paymentStatus:"pending" ,
             bookingStatus:"Booked" ,
             name:name ,
             email: email,
             comments:comments ,
             phone: phone,
-            amount: finalRate
+            amount: finalRate,
+            walletBalace:wallet
           },
         });
         // props.setLoading(false)
         if (serverRespose.data.message == "sucess") {
-          if(paymentMethod=="razerPay"){
+          let bookingId=serverRespose.data.data._id 
+          if(razorPayment){
 
             
-            let bookingId=serverRespose.data.data._id
+           
             displayRazorpay(serverRespose.data.order,bookingId)
 
 
@@ -159,7 +169,7 @@ function VehiclePayment(params) {
 
             toast.success('Vehicle Booked')
 
-            setTimeout(()=>{navigate("/")}, 2000);
+            setTimeout(()=>{navigate("/user/bookingSuccessfull/"+bookingId)}, 2000);
 
           }
           
@@ -167,6 +177,7 @@ function VehiclePayment(params) {
           
         } else {
           setError1("Please re-try after some time");
+          
         }
 
 
@@ -175,6 +186,10 @@ function VehiclePayment(params) {
 
       } catch (error) {
         console.log(error)
+        if (error.response.status == 401) {
+          localStorage.clear();
+          navigate("/user/login");
+        }
       }
   }
 
@@ -197,7 +212,7 @@ function VehiclePayment(params) {
     try {
       let serverRespose = await axios({
         method: "get",
-        url: "http://localhost:3000/api/v1/user/userDetails",
+        url: "/userDetails",
         params: {
           userId:userId
         },
@@ -207,6 +222,7 @@ function VehiclePayment(params) {
         setName(serverRespose.data.data.name);
         setEmail(serverRespose.data.data.email);
         setPhone(serverRespose.data.data.phone);
+        setWallet(serverRespose.data.data.walletBalance)
 
       } else {
         setError1("Please re-try after some time");
@@ -258,11 +274,26 @@ function VehiclePayment(params) {
         <h1 className="text-right"> Rs.{finalRate} </h1>
         <h2 className=" font-semibold mb-3">Payment Mathods </h2>
         <div className=" ms-5">
-            <input type="radio" id="razerPay" name="pay_method" value="razerPay" className='' onChange={(e)=>setPaymentMethod(e.target.value)}/>
+            <input 
+              disabled={wallet>=finalRate && walletPayment}  
+              type="checkbox" id="razerPay" name="pay_method" 
+              value="razerPay" className='' 
+              checked={!(wallet>=finalRate && walletPayment) && razorPayment}
+              onChange={(e)=>setRazorPayment(e.target.checked)}
+              />
             <label for="razerPay" className=''>Razer Pay</label>
             <br className=''></br>
-            <input type="radio" id="wallet" name="pay_method" value="wallet" onChange={(e)=>setPaymentMethod(e.target.value)} />
-            <label for="wallet">Wallet Payment (Rs.5000)</label>
+            <input 
+              disabled={wallet==0}
+              type="checkbox" id="wallet" name="pay_method" 
+              value="wallet" 
+              onChange={(e)=>{
+                if(wallet>=finalRate){
+                  setRazorPayment(false)
+                }
+                setWalletPayment(e.target.checked)}} 
+              />
+            <label for="wallet">Wallet Payment (Rs.{wallet})</label>
         </div>
         
         <button className=" bg-[rgb(16,163,16)] w-3/5 py-3  rounded-xl mx-auto mt-4 font-semibold text-white" onClick={bookVehicle}>PROCEED TO PAY </button>

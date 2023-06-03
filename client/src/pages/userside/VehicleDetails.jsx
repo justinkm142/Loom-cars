@@ -5,7 +5,7 @@ import {useParams } from "react-router-dom";
 import VehiclePhotos from '../../componants/user/VehiclePhotos';
 import VehicleDiscription from '../../componants/user/VehicleDiscription';
 import VehiclePayment from '../../componants/user/VehiclePayment';
-import axios from 'axios';
+import axios from '../../utils/axiosInterceptor_user';
 
 
 function VehicleDetails(params) {
@@ -25,7 +25,7 @@ function VehicleDetails(params) {
     try {
       let serverRespose = await axios({
         method: "get",
-        url: "http://localhost:3000/api/v1/user/vehicleDetails",
+        url: "/vehicleDetails",
         params: {
           vehicleId: vehicleId,
         },
