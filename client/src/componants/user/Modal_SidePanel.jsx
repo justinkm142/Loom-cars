@@ -7,8 +7,13 @@ import { useSelector } from "react-redux";
 
 import {
   MdOutlineAccountBalanceWallet, 
-  MdOutlineDirectionsCar
+  MdOutlineDirectionsCar,
+  MdLogin
 } from 'react-icons/md'
+
+import {
+  FaUserPlus
+} from 'react-icons/fa'
 
 import {
   VscAccount
@@ -48,7 +53,13 @@ function Modal_SidePanel({visible,modalClose}) {
   //      return null; 
   // }
 
-  return (
+   
+
+
+if(name){
+
+  return(
+    
     <div 
     id='container'
     onClick={handleClose}
@@ -62,9 +73,9 @@ function Modal_SidePanel({visible,modalClose}) {
                         <p className="text-white text-sm">{phone}</p>
                     </div>
               </div>
-
+  
               <div className="text-black ps-10">
-
+  
                   <ul className='font-medium text-2xl '>
                       <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center ' onClick={()=>{
                           modalClose() ; 
@@ -94,8 +105,57 @@ function Modal_SidePanel({visible,modalClose}) {
       </div>
       
       <Toaster />
-    </div>
-  )
+    </div>)
+
+
+}else{
+
+  return(
+    
+    <div 
+    id='container'
+    onClick={handleClose}
+    className={visible ?'bg-black bg-opacity-90 h-full w-full fixed inset-0 flex justify-start text-white z-10 ease-linear duration-500': "fixed left-[-100%]"  }>
+      <div className={visible ? "h-screen w-1/4 bg-white  opacity-100 ":"fixed left-[-100%]" }>
+        <div className=" ">
+              <div className="bg-black h-20 pt-3  ">
+                <h1 className='text-white font-medium text-lg ms-5 '>{name}</h1>
+                    <div className="ps-10">
+                        <p className="text-white text-sm">{email}</p>
+                        <p className="text-white text-sm">{phone}</p>
+                    </div>
+              </div>
+  
+              <div className="text-black ps-10">
+  
+                  <ul className='font-medium text-2xl '>
+                      <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center ' onClick={()=>{
+                          modalClose() ; 
+                          navigate("/user/login") ;
+                      }
+                    }> <MdLogin size={40} />Login</li>
+                      <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center'onClick={()=>{
+                          modalClose() ; 
+                          navigate("/user/signup") ;
+                      }
+                    }
+                      ><FaUserPlus size={40}  /> SignUp</li>
+
+                      {/* <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center'><BiSupport size={40}/> Help & Support</li> */}
+                     
+                  </ul>
+              </div>
+        </div>
+      </div>
+      
+      <Toaster />
+    </div>)
+
+
+}
+
+
+
 }
 
 export default Modal_SidePanel
