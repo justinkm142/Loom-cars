@@ -49,6 +49,10 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/verify", authRouter);
 
+app.get ("/app2",(req,res)=>{
+  res.send('<h1> Justin plese note server is working </h1>')
+})
+
 // connect to db
 connectDB();
 
