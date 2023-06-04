@@ -1,12 +1,16 @@
 import React,{useState,useEffect,createContext} from 'react'
-import UserNavbar1 from '../../componants/user/Navbar-user'
 import {Outlet} from 'react-router-dom'
-import Modal_SidePanel from '../../componants/user/Modal_SidePanel'
-import toast, { Toaster } from 'react-hot-toast';
 import axios from '../../utils/axiosInterceptor_user'
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useSelector } from "react-redux";
+
+
+import Modal_SidePanel from '../../componants/user/Modal_SidePanel'
+import UserNavbar1 from '../../componants/user/Navbar-user'
+import Footer from '../../componants/user/Footer'
+
+
 
 export const UserContext = createContext();
 
@@ -82,6 +86,7 @@ function Outline() {
           <UserNavbar1 setModal={setShowModal}/>
           <Modal_SidePanel visible={showModal} modalClose={modalClose} />
           <Outlet />
+          <Footer />
     </div>
     </UserContext.Provider>
   )

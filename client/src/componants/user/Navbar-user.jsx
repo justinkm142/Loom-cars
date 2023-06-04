@@ -41,7 +41,7 @@ function UserNavbar(props) {
             <Link to='/user/home' >   
             <img
               className="py-3 mt-1 cursor-pointer h-14 "
-              src="../../public/photos/Logo.png"
+              src="https://res.cloudinary.com/diefdj29l/image/upload/v1685874418/Logo_wim37r.png"
             ></img>
 
 
