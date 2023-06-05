@@ -2,7 +2,10 @@ import express, { urlencoded } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import * as dotenv from 'dotenv'
-import * as path from 'path'
+
+
+import { dirname,join } from 'path';
+import { fileURLToPath } from 'url';
 
 
 
@@ -21,11 +24,15 @@ import connectDB from "./Config/db.js";
 
 const app = express();
 
-const  _dirname = path.dirname("")
-const buildPath = path.join(_dirname , "../client/dist")
+const __dirname = dirname(fileURLToPath(import.meta.url));
+// const buildPath = path.join(_dirname , "../client/dist")
 
 
-app.use(express.static(buildPath))
+const _dir = join(__dirname,"../client/dist")
+
+console.log("www path sis",_dir  )
+
+app.use(express.static(_dir))
 
 
 const port = process.env.PORT;
@@ -52,6 +59,15 @@ app.use("/api/v1/verify", authRouter);
 app.get ("/app2",(req,res)=>{
   res.send('<h1> Justin plese note server is working </h1>')
 })
+
+
+
+app.get('*', function(req, res) {
+ 
+  res.sendFile(join(_dir, 'index.html'));
+});
+
+
 
 // connect to db
 connectDB();
