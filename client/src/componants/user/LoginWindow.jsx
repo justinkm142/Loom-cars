@@ -3,10 +3,17 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "../../utils/axiosInterceptor_user";
 import { useState } from "react";
 
+import { useDispatch } from 'react-redux';
+import { update } from '../../redux/userSlice';
+import jwt_decode from "jwt-decode";
+
+
+
 function LoginWindow(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [navi, setNavi] = useState(-1)
+  const dispach = useDispatch()
 
 
   //navigation
@@ -43,6 +50,16 @@ function LoginWindow(props) {
       });
       if (serverRespose.data.message == "sucess") {
         localStorage.setItem("token", serverRespose.data.token);
+
+        const token = localStorage.getItem('token');
+        const decoded  = jwt_decode(token);
+
+        let userId = decoded.userId;
+        let name= decoded.user;
+        let email= decoded.email;
+        let phone = decoded.phone;
+        dispach(update({name,email,userId,phone}))
+
         navigate(-1);
         setNavi(-1)
       } else {
@@ -50,7 +67,7 @@ function LoginWindow(props) {
       }
     } catch (err) {
       console.log(err.response);
-      setError1(err.response.data.error);
+      setError1(err.response?.data.error);
       setNavi(navi-1)
     }
   };

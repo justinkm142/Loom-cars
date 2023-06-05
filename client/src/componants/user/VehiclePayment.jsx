@@ -36,6 +36,13 @@ function VehiclePayment(params) {
   const [wallet, setWallet]=useState(0);
   const [walletPayment, setWalletPayment] = useState(false)
   const [razorPayment, setRazorPayment] = useState(false)
+
+  // set errors
+  const [nameErr, setNameErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+  const [commentsErr, setCommentsErr] = useState(false);
+  
  
     
   const handleValueChange = (newValue) => {
@@ -131,6 +138,9 @@ function VehiclePayment(params) {
       try {
         
         let token = localStorage.getItem("token");
+        if(!token){
+          navigate("/user/login");
+        }
         let decoded = jwt_decode(token);
 
         // props.setLoading(true)
@@ -160,11 +170,7 @@ function VehiclePayment(params) {
           let bookingId=serverRespose.data.data._id 
           if(razorPayment){
 
-            
-           
             displayRazorpay(serverRespose.data.order,bookingId)
-
-
           }else{
 
             toast.success('Vehicle Booked')
@@ -173,20 +179,15 @@ function VehiclePayment(params) {
 
           }
           
-
-          
         } else {
+
           setError1("Please re-try after some time");
           
         }
 
-
-
-
-
       } catch (error) {
         console.log(error)
-        if (error.response.status == 401) {
+        if (error.response?.status == 401) {
           localStorage.clear();
           navigate("/user/login");
         }
@@ -240,14 +241,26 @@ function VehiclePayment(params) {
       <div className='grid grid-rows-5 m-5' >
         <h1 className="font-medium"> Booking Details </h1>
         <input 
-            onChange={(e)=>{setName(e.target.value)}}
+            onChange={(e)=>{
+              let regex = /^[a-zA-Z ]{3,16}$/;
+              setNameErr(!regex.test(e.target.value));
+              setName(e.target.value)}}
             type="text" className="mt-5 border-2 rounded-md" placeholder='Full Name' value={name} />
+            {nameErr ? <span className="text-red-500 ">Enter Name only </span>: null}
         <input 
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e)=>{
+              let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+              setEmailErr(!regex.test(e.target.value));
+              setEmail(e.target.value)}}
             type="email" className="mt-5 border-2 rounded-md" placeholder='Email' value={email}/>
+             {emailErr ? <span className="text-red-500 ">Enter Email only  </span>: null}
         <input 
-            onChange={(e)=>{setPhone(e.target.value)}}
+            onChange={(e)=>{
+              let regex = /^[0-9]{10}$/;
+              setPhoneErr(!regex.test(e.target.value));
+              setPhone(e.target.value)}}
             type="number" className="mt-5 border-2 rounded-md" placeholder='Phone Number' value={phone}/>
+             {phoneErr ? <span className="text-red-500 ">Enter phone number only  </span>: null}
        
        
        
@@ -256,9 +269,9 @@ function VehiclePayment(params) {
             value={value} 
             onChange={handleValueChange} 
             placeholder={"Select Date"} 
-            minDate={new Date(startDateInString)} 
+            // minDate={new Date(startDateInString)} 
             maxDate={new Date(endDateInString)} 
-          
+            minDate={new Date(new Date().getTime()-24*60*60*1000)}
             inputClassName=" rounded-md  font-normal bg-white text-black w-full mt-5 h-8 border-2 " 
             disabledDates={bookedDays} 
           /> 
@@ -268,8 +281,12 @@ function VehiclePayment(params) {
        
         <textarea  
           value={comments}
-          onChange={(e)=>setComments(e.target.value)}
+          onChange={(e)=>{
+            let regex = /^[a-zA-Z ]{5,16}$/;
+            setCommentsErr(!regex.test(e.target.value));
+            setComments(e.target.value)}}
         cols="40" rows="5" className='mt-5 border-2 rounded-md' placeholder='Comments'></textarea>
+         {commentsErr ? <span className="text-red-500 ">Enter Comments  </span>: null}
         <p className=" mt-2 text-slate-600">please review the final fare </p>
         <h1 className="text-right"> Rs.{finalRate} </h1>
         <h2 className=" font-semibold mb-3">Payment Mathods </h2>
@@ -295,8 +312,23 @@ function VehiclePayment(params) {
               />
             <label for="wallet">Wallet Payment (Rs.{wallet})</label>
         </div>
-        
-        <button className=" bg-[rgb(16,163,16)] w-3/5 py-3  rounded-xl mx-auto mt-4 font-semibold text-white" onClick={bookVehicle}>PROCEED TO PAY </button>
+
+
+        <div class="group flex relative">
+          <button 
+          disabled={name =="" || email == "" || phone =="" || value.startDate == null || value.endDate == null || comments == "" || !(walletPayment || razorPayment) || !(localStorage.getItem("token"))  ? true:false}
+          className=" bg-[rgb(16,163,16)] w-3/5 py-3  rounded-xl mx-auto mt-4 font-semibold text-white" 
+          onClick={bookVehicle}>PROCEED TO PAY </button>
+            
+            {name =="" || email == "" || phone =="" || value.startDate == null || value.endDate == null || comments == "" || !(walletPayment || razorPayment) || !(localStorage.getItem("token"))  ? 
+            <span class="group-hover:opacity-100 transition-opacity bg-green-500 px-1 text-xl text-black rounded-md absolute left-1/2 
+             -translate-x-1/2 translate-y-full opacity-0 mt-10 mx-auto w-full text-center"
+             >{localStorage.getItem("token") ? "Fill the form" : "Login to your account and fill the form"}</span>
+
+             :null} 
+
+        </div> 
+
 
       </div>
       <Toaster />

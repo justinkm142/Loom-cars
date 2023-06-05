@@ -10,7 +10,7 @@ dotenv.config();
 
 export const booking = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log("body of the booking ", req.body);
 
     let otp = otpGenerator.generate(4, {
       upperCaseAlphabets: false,
@@ -35,7 +35,14 @@ export const booking = async (req, res) => {
       OTP: otp,
     };
 
-    let amount = req.body.amount - req.body.walletBalace;
+    let amount
+        if(req.body.paymentMethod.walletPayment==true && req.body.paymentMethod.razorPayment==true ){
+          amount = req.body.amount - req.body.walletBalace;
+        }else{
+          amount = req.body.amount
+        }
+
+
     const result = await BookingModel.create(data);
 
     const result2 = await CarModel.updateOne(
@@ -53,6 +60,9 @@ export const booking = async (req, res) => {
       const result = await UserModel.findByIdAndUpdate(req.body.userId, {
         $inc: { walletBalance: -walletAmount },
       });
+      const result1 = await UserModel.findOneAndUpdate({carList:new mongoose.Types.ObjectId(req.body.carId)}, 
+        {$inc: { walletBalance: +walletAmount } } )
+      console.log("booking get data after wallet updation of user",result1 )
     }
 
     if ("razerPay" == data.paymentMethod) {
@@ -177,6 +187,10 @@ export const cancelBooking = async (req, res) => {
       const updateWallet = await UserModel.findByIdAndUpdate(result.userId, {
         $inc: { walletBalance: result.amount },
       });
+
+      const result1 = await UserModel.findOneAndUpdate({carList:new mongoose.Types.ObjectId(result.carId)}, 
+      {$inc: { walletBalance: -result.amount } } )
+      console.log("booking get data after wallet updation of user",result1 )
 
     }
 

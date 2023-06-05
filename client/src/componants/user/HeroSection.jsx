@@ -33,7 +33,7 @@ let navigate=useNavigate();
           <select 
           onChange={(e)=>setLocation(e.target.value)}
           name="" id="" className=" rounded-full h-10 lg:h-full lg:rounded-s-full lg:rounded-e-md text-center" >
-          <option selected >Choose Location</option>
+          <option selected value="" >Choose Location</option>
                 <option value="KOCHI">Kochi</option>
                 <option value="CHENNAI">Chennai</option>
                 <option value="TRIVANDRUM">Trivandrum</option>
@@ -51,8 +51,20 @@ let navigate=useNavigate();
             popoverDirection="down" 
             onChange={handleValueChange} /> 
 
-          <button className="bg-[rgb(16,163,16)] h-10 rounded-b-lg mt-3 lg:h-full lg:mt-0 lg:rounded-e-full text-white" onClick={()=>navigate(`/user/search?location=${location}&startDate=${startDate}&endDate=${endDate}`)} > GET CAR
+
+        <div class="group flex relative">
+          <button 
+          disabled={location =="" || startDate == "" || endDate =="" ? true:false} 
+          className="bg-[rgb(16,163,16)] h-10 rounded-b-lg mt-3 lg:h-full lg:mt-0 lg:rounded-e-full text-white w-full "
+          onClick={()=>navigate(`/user/search?location=${location}&startDate=${startDate}&endDate=${endDate}`)} > GET CAR
             </button>
+            {location =="" || startDate == "" || endDate =="" ? 
+            <span class="group-hover:opacity-100 transition-opacity bg-green-500 px-1 text-2xl text-black rounded-md absolute left-1/2 
+             -translate-x-1/2 translate-y-full opacity-0 m-0 mx-auto w-full text-center"
+             >Select Location and Date</span>
+
+             :null} 
+        </div>
 
 
         </div>

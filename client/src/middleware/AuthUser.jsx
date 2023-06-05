@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
-import {Navigate} from 'react-router-dom'
 import { update } from '../redux/userSlice';
 import jwt_decode from "jwt-decode";
+
+import {Navigate} from 'react-router-dom'
 
 
 export const AuthorizeUser = ({children})=>{

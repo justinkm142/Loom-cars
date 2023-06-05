@@ -85,7 +85,12 @@ function Outline() {
     <div>
           <UserNavbar1 setModal={setShowModal}/>
           <Modal_SidePanel visible={showModal} modalClose={modalClose} />
-          <Outlet />
+          <div className="min-h-screen">
+
+              <Outlet />
+
+          </div>
+
           <Footer />
     </div>
     </UserContext.Provider>

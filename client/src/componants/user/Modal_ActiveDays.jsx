@@ -7,8 +7,17 @@ import {CgSpinner} from 'react-icons/cg'
 
 function Modal_ActiveDays({visible,carId,modalClose,userId,getCarDetails}) {
 
+
+  const startDate = new Date();
+  const endDate = new Date();
+  endDate.setMonth(11);
+
+  const formattedStartDate = startDate.toISOString().split('T')[0];
+  const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+
+
   const [loading,setLoading] =useState(false)
-  const [newDate, setNewDate] = useState({startDate: new Date(), endDate: new Date().setMonth(11) });
+  const [newDate, setNewDate] = useState({startDate: formattedStartDate, endDate: formattedEndDate });
  
   const handleValueChange = (newValue) => {
     console.log("newValue:", newValue); 
