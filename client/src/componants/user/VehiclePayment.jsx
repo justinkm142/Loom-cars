@@ -249,7 +249,7 @@ function VehiclePayment(params) {
             {nameErr ? <span className="text-red-500 ">Enter Name only </span>: null}
         <input 
             onChange={(e)=>{
-              let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+              let regex = /^[A-Za-z][A-Za-z0-9_]*@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
               setEmailErr(!regex.test(e.target.value));
               setEmail(e.target.value)}}
             type="email" className="mt-5 border-2 rounded-md" placeholder='Email' value={email}/>

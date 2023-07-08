@@ -1,9 +1,32 @@
 import React from 'react'
 import { Outlet,useNavigate } from 'react-router-dom'
 import {VscAccount} from 'react-icons/vsc'
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import {signout} from '../../redux/userSlice'
 
 
 function Profile() {
+
+  const name = useSelector((state)=>state.user.name)
+  const email = useSelector((state)=>state.user.email)
+  const phone = useSelector((state)=>state.user.phone)
+  
+  const dispach = useDispatch()
+
+const handleLogOut = ()=>{
+
+    localStorage.removeItem("token");
+    dispach(signout())
+
+    navigate('/user/home')
+
+}
+
+
+
+
+
   const navigate= useNavigate()
   return (
     <div>
@@ -14,9 +37,9 @@ function Profile() {
                <div className=" flex flex-col justify-center items-center py-5">
 
                   <VscAccount size={80}/>
-                  <h1 className="">Justin</h1>
-                  <p className="">justin@gmail.com</p> 
-                  <p className="">9895781007</p>
+                  <h1 className="">{name}</h1>
+                  <p className="">{email}</p> 
+                  <p className="">{phone}</p>
 
                </div>
 
@@ -43,8 +66,8 @@ function Profile() {
                     }}
                 >My Wallet</li>
                 <li className='mt-10 mb-5 cursor-pointer hover:bg-gray-300' onClick={()=>{
-                      
-                          navigate("/user/logout") ;
+                          handleLogOut();
+                          // navigate("/user/logout") ;
                         }}
                 >Logout</li>
               </ol>

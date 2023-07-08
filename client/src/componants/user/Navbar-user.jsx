@@ -66,15 +66,38 @@ function UserNavbar(props) {
                 </Link>
               </div>
 
+              {name=="" ? 
+              
               <Link
+              to="/user/login"
+              className="rounded-md bg-black px-5 py-2.5 text-sm font-medium md:text-[18px] text-white"
+            >
+              Login/Signup
+            </Link>
+              
+              : 
+              
+              <Link
+              to="/user/profile/home"
+              className="rounded-md bg-black px-5 py-2.5 text-sm font-medium md:text-[18px] text-white"
+            >
+            {`Hi ${name}`}
+            </Link>  
+              }
+
+
+
+
+
+              {/* <Link
                 to="/user/login"
                 className="rounded-md bg-black px-5 py-2.5 text-sm font-medium md:text-[18px] text-white"
               >
                 {name=="" ? "Login/Signup": `Hi ${name}`  }
-              </Link>
+              </Link> */}
             </div>
 
-            <div className="block md:hidden">
+            {/* <div className="block md:hidden">
               <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +114,7 @@ function UserNavbar(props) {
                   />
                 </svg>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

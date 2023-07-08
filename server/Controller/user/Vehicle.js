@@ -128,31 +128,48 @@ export const carList_home = async (req, res) => {
     let result;
     if (filter == "ALL") {
       result = await CarModel.find({ isVerified: true })
-        .skip(4*pageNumber)
+        .skip(limit*pageNumber)
         .limit(limit)
         .exec();
       pageCount = await CarModel.find({ isVerified: true }).count()
       pageCount = pageCount/limit
     } else if (filter == "AUTOMATIC") {
       result = await CarModel.find({ transmission: filter, isVerified: true })
-        .limit(4 * pageNumber)
+      .skip(limit*pageNumber)
+      .limit(limit)
         .exec();
+        pageCount = await CarModel.find({ transmission: filter, isVerified: true }).count()
+        pageCount = pageCount/limit
+
     } else if (filter == "MANUAL") {
       result = await CarModel.find({ transmission: filter, isVerified: true })
-        .limit(4 * pageNumber)
+      .skip(limit*pageNumber)
+      .limit(limit)
         .exec();
+        pageCount = await CarModel.find({ transmission: filter, isVerified: true }).count()
+        pageCount = pageCount/limit
     } else if (filter == "DIESEL") {
       result = await CarModel.find({ fuelType: filter, isVerified: true })
-        .limit(4 * pageNumber)
+      .skip(limit*pageNumber)
+      .limit(limit)
         .exec();
+        pageCount = await CarModel.find({ fuelType: filter, isVerified: true }).count()
+        pageCount = pageCount/limit
     } else if (filter == "PETROL") {
       result = await CarModel.find({ fuelType: filter, isVerified: true })
-        .limit(4 * pageNumber)
+      .skip(limit*pageNumber)
+      .limit(limit)
         .exec();
+        pageCount = await CarModel.find({ fuelType: filter, isVerified: true }).count()
+        pageCount = pageCount/limit
     } else {
       result = await CarModel.find({ isVerified: true })
-        .limit(4 * pageNumber)
+      .skip(limit*pageNumber)
+      .limit(limit)
         .exec();
+        pageCount = await CarModel.find({ isVerified: true }).count()
+        pageCount = pageCount/limit
+
     }
     res.status(201).send({ message: "sucess", result, pageCount });
   } catch (error) {

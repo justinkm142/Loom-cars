@@ -14,10 +14,53 @@ function Home() {
   const [pageNumber, setPageNumber] = useState(0);
   const [limit, setLimit] = useState(4);
   const [pageCount, setPageCount] = useState(0)
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+
 
   useEffect(()=>{
     getProductData(filter)
   },[pageNumber,limit,filter])
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+
+  
+useEffect(()=>{
+  if(windowDimensions.width <= 640){
+    setLimit(1)
+    console.log("screen dimen is ", windowDimensions, limit );
+  }else if(windowDimensions.width <= 768 ){
+    setLimit(2)
+    console.log("screen dimen is ", windowDimensions, limit );
+  }else if(windowDimensions.width <= 1167 ){
+    setLimit(3)
+    console.log("screen dimen is ", windowDimensions, limit );
+  }else{
+    setLimit(4)
+    console.log("screen dimen is ", windowDimensions, limit );
+  }
+},[])
+
+
+
+
 
   const getProductData = async(filter)=>{
     try {

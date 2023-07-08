@@ -1,5 +1,5 @@
 // export const userBaseUrl = "http://localhost:3000/api/v1/user";
-// export const adminBaseUrl = "https://localhost:3000/api/v1/admin";
+// export const adminBaseUrl = "http://localhost:3000/api/v1/admin";
 
 
 

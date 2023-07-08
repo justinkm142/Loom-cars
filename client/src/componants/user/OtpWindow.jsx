@@ -36,6 +36,32 @@ function OtpWindow() {
     }, auth);
   }
 
+
+
+  async function verifyPhonenumber(){
+    let serverRespose = await axios({
+      method: "get",
+      url: "/otplogin",
+      params: {
+        phone:phone
+      },
+    });
+    console.log()
+    if (serverRespose.data.message == "sucess") {
+
+      onSignup()
+
+      // setLoading1(false)
+      // toast.success('OTP Verified')
+      // localStorage.setItem("token", serverRespose.data.token);
+      // navigate("/user/home")
+    } else {
+      toast.error(serverRespose.data.error);
+
+      setError1("Please re-try after some time");
+    }
+  }
+
   function onSignup(){
     setLoading(true)
     onCaptchVerify()
@@ -153,7 +179,7 @@ useEffect(()=>{
     {disableButton ?
 
       <button 
-      onClick={onSignup}
+      onClick={verifyPhonenumber}
       disabled
       className="bg-gray-500 w-full flex gap-1 items-center
       justify-center py-2.5 text-white  rounded-sm "
@@ -169,7 +195,7 @@ useEffect(()=>{
     :
 
     <button 
-    onClick={onSignup}
+    onClick={verifyPhonenumber}
     className=" bg-blue-600 w-full flex gap-1 items-center
     justify-center py-2.5 text-white  rounded-sm "
     >

@@ -8,18 +8,11 @@ function Logout() {
 const dispach = useDispatch()
 let navigate = useNavigate()
 useEffect(()=>{
-    localStorage.removeItem("token");
 
+    // localStorage.removeItem("token");
+    // dispach(signout())
 
-    dispach(signout())
-
-    navigate('/user/home')
-
-
-
-
-
-
+    // navigate('/user/home')
 })
 
   return (

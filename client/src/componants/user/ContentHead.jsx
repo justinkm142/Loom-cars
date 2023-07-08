@@ -97,7 +97,7 @@ function ContentHead(props) {
       props.pageNumber>0 ? 
       <div 
         onClick={()=>props.setPageNumber(props.pageNumber - 1)}
-        className="my-auto w-16">
+        className="my-auto w-16 mx-auto sm:mx-0">
           <div className="mx-auto my-auto border-2 hover:bg-slate-600 active:bg-slate-800 bg-slate-400 rounded-full cursor-pointer">
 
           <p className='p-4 align-middle text-4xl text-black '><BsArrowLeft /></p>
@@ -236,7 +236,7 @@ function ContentHead(props) {
         
           console.log("my name is ==")
         }}
-        className="my-auto w-16">
+        className="my-auto w-16 mx-auto sm:mx-0  ">
           <div className="mx-auto my-auto border-2 hover:bg-slate-600 active:bg-slate-800 bg-slate-400 rounded-full cursor-pointer">
 
           <p className='p-4 align-middle text-4xl text-black '><BsArrowRight /></p>

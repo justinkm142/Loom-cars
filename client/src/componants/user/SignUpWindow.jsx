@@ -29,7 +29,7 @@ function LoginWindow() {
   };
   const emailCheck = (e) => {
     setEmail(e.target.value);
-    let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    let regex = /^[A-Za-z][A-Za-z0-9_]*@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     setEmailErr(!regex.test(e.target.value));
   };
   const phoneCheck = (e) => {
@@ -98,6 +98,7 @@ function LoginWindow() {
 
 
   return (
+    <>
     <section className="bg-black p-3">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-black lg:col-span-5 lg:h-full xl:col-span-6">
@@ -246,6 +247,9 @@ function LoginWindow() {
         </main>
       </div>
     </section>
+
+   
+    </>
   );
 }
 export default LoginWindow;

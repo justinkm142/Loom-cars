@@ -7,6 +7,7 @@ import {
   otpLogin,
   userDetails,
   editUserDetails,
+  phoneNumberVerify
 } from "../Controller/user/LoginSignup.js";
 
 import {
@@ -46,6 +47,8 @@ const router = Router();
 router.post("/signup", signup);
 router.post("/signin", login);
 router.post("/otplogin", otpLogin);
+router.get("/otplogin", phoneNumberVerify);
+
 
 
 router.get("/", carList_home);

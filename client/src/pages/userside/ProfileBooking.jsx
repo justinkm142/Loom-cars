@@ -79,10 +79,19 @@ const getBookingList = async (userId) => {
        })}
 
         
-
-      <div className="mt-5">
-          <Pagination setPage = {setPage} totalDocument = {totalDocument} page={page} />
+       {bookingList?.length==0 ? 
+       
+       
+       <h1 className='font-bold text-4xl mt-56'>Empty</h1>
+       
+       :
+       <div className="mt-5">
+       <Pagination setPage = {setPage} totalDocument = {totalDocument} page={page} />
       </div>
+       
+       
+       }
+
 
 
     </div>

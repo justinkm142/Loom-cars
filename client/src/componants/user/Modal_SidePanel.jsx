@@ -4,6 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import {signout} from '../../redux/userSlice'
 
 import {
   MdOutlineAccountBalanceWallet, 
@@ -33,6 +35,7 @@ function Modal_SidePanel({visible,modalClose}) {
   const [loading,setLoading] =useState(false)
   
  const navigate = useNavigate()
+ const dispach = useDispatch()
 
  const name = useSelector((state)=>state.user.name)
  const email = useSelector((state)=>state.user.email)
@@ -45,6 +48,13 @@ function Modal_SidePanel({visible,modalClose}) {
     }
   }
 
+  const signoutUser =  ()=>{
+
+    localStorage.removeItem("token");
+    dispach(signout())
+    navigate('/user/home')
+
+  }
 
 
 
@@ -64,7 +74,7 @@ if(name){
     id='container'
     onClick={handleClose}
     className={visible ?'bg-black bg-opacity-90 h-full w-full fixed inset-0 flex justify-start text-white z-10 ease-linear duration-500': "fixed left-[-100%]"  }>
-      <div className={visible ? "h-screen w-1/4 bg-white  opacity-100 ":"fixed left-[-100%]" }>
+      <div className={visible ? "h-screen w-1/2 md:w-1/4 bg-white  opacity-100 ":"fixed left-[-100%]" }>
         <div className=" ">
               <div className="bg-black h-20 pt-3  ">
                 <h1 className='text-white font-medium text-lg ms-5 '>{name}</h1>
@@ -95,8 +105,9 @@ if(name){
                       }><VscAccount size={40}/>My Profile</li>
                       <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center'><BiSupport size={40}/> Help & Support</li>
                       <li className='mt-10 hover:bg-slate-300 cursor-pointer flex gap-3 items-center' onClick={()=>{
+                          signoutUser();
                           modalClose() ; 
-                          navigate("/user/logout") ;
+                          // navigate("/user/logout") ;
                         }
                           }>  <BiLogOut size={40} /> Logout </li> 
                   </ul>
@@ -116,7 +127,7 @@ if(name){
     id='container'
     onClick={handleClose}
     className={visible ?'bg-black bg-opacity-90 h-full w-full fixed inset-0 flex justify-start text-white z-10 ease-linear duration-500': "fixed left-[-100%]"  }>
-      <div className={visible ? "h-screen w-1/4 bg-white  opacity-100 ":"fixed left-[-100%]" }>
+      <div className={visible ? "h-screen w-1/2 md:w-1/4 bg-white  opacity-100 ":"fixed left-[-100%]" }>
         <div className=" ">
               <div className="bg-black h-20 pt-3  ">
                 <h1 className='text-white font-medium text-lg ms-5 '>{name}</h1>

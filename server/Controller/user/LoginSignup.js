@@ -78,6 +78,29 @@ export const otpLogin = async (req, res) => {
   }
 };
 
+export const phoneNumberVerify  = async (req, res) => {
+  try {
+    
+    const  {phone}  = req.query;
+    
+    let result = await UserModel.find({ phone: phone }).exec();
+    if (result.length == 0) {
+      return res.status(200).json({ message: "error", error: "user Not found" });
+    }else {
+      return res.status(200).json({ message: "sucess", error: "user found" });
+    }
+   
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({message: "error", error: "Server Error! Please try after some time" });
+  }
+};
+
+
+
+
+
+
 export const userDetails = async (req, res) => {
   try {
     const { userId } = req.query
