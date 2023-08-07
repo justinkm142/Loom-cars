@@ -4,6 +4,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
+import "./App.css"
 
 //pages admin
 import AdminLogin from "./pages/adminside/Login";
@@ -118,7 +119,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <Outline />,
+    element:   <Outline /> ,
     children: [
       {
         path: "home",

@@ -99,7 +99,7 @@ function LoginWindow() {
 
   return (
     <>
-    <section className="bg-black p-3">
+    <section className="bg-black p-3 h-full">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-black lg:col-span-5 lg:h-full xl:col-span-6">
           <img
@@ -132,7 +132,7 @@ function LoginWindow() {
                   type="string"
                   id="Name"
                   name="Name"
-                  className="mt-1 w-full h-10 col-span-6 rounded-md bg-[#323231]  text-white  shadow-sm "
+                  className="mt-1 w-full h-10 col-span-6 rounded-md bg-[#323231]  text-white  shadow-sm ps-1 "
                   onChange={nameCheck}
                 />
                 <span className={`text-red-500 ${cssName} `}>
@@ -152,7 +152,7 @@ function LoginWindow() {
                   type="email"
                   id="Email"
                   name="Email"
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                   onChange={emailCheck}
                 />
                 <span className={`text-red-500 ${cssEmail} `}>
@@ -171,7 +171,7 @@ function LoginWindow() {
                   type="number"
                   id="Phone"
                   name="Phone"
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                   onChange={phoneCheck}
                 />
                 <span className={`text-red-500 ${cssPhone} `}>
@@ -192,7 +192,7 @@ function LoginWindow() {
                   name="Password"
                   type="password"
                   onChange={passwordCheck}
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                 />
                 <span className={`text-red-500 ${cssPassword} `}>
                   Password should be 8-20 characters and include at least 1
@@ -214,7 +214,7 @@ function LoginWindow() {
                   name="PasswordConfirmation12"
                   type="password"
                   onChange={(e) => passwordConfirmCheck(e.target.value)}
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                 />
                 <span className={`text-red-500 ${cssPasswordConfirm} `}>
                   Passwords don't match!

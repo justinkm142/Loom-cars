@@ -107,7 +107,7 @@ function LoginWindow(props) {
                   id="Email"
                   name="Email"
                   onChange={emailCheck}
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                 />
               </div>
 
@@ -124,14 +124,14 @@ function LoginWindow(props) {
                   id="Password"
                   name="Password"
                   onChange={passwordCheck}
-                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm"
+                  className="mt-1 w-full h-10 rounded-md bg-[#323231]  text-white  shadow-sm ps-1"
                 />
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center mx-auto sm:gap-4">
                 <button
                   className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium 
-              text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                  text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 >
                   Login
                 </button>
@@ -151,8 +151,8 @@ function LoginWindow(props) {
                   Gmail Login
                 </button> */}
                 <button type="button"
-                  className=" ms-4 mt-5 inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium 
-              text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                  className=" inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium 
+                  text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                  onClick={()=>{props.setShowModal(true)}}>
                   OTP Login
                 </button>

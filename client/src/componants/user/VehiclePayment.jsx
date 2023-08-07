@@ -245,21 +245,22 @@ function VehiclePayment(params) {
               let regex = /^[a-zA-Z ]{3,16}$/;
               setNameErr(!regex.test(e.target.value));
               setName(e.target.value)}}
-            type="text" className="mt-5 border-2 rounded-md" placeholder='Full Name' value={name} />
-            {nameErr ? <span className="text-red-500 ">Enter Name only </span>: null}
+              type="text" 
+              className="mt-5 border-2 rounded-md ps-1" placeholder='Full Name' value={name} />
+              {nameErr ? <span className="text-red-500 ">Enter Name only </span>: null}
         <input 
             onChange={(e)=>{
               let regex = /^[A-Za-z][A-Za-z0-9_]*@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
               setEmailErr(!regex.test(e.target.value));
               setEmail(e.target.value)}}
-            type="email" className="mt-5 border-2 rounded-md" placeholder='Email' value={email}/>
+            type="email" className="mt-5 border-2 rounded-md ps-1" placeholder='Email' value={email}/>
              {emailErr ? <span className="text-red-500 ">Enter Email only  </span>: null}
         <input 
             onChange={(e)=>{
               let regex = /^[0-9]{10}$/;
               setPhoneErr(!regex.test(e.target.value));
               setPhone(e.target.value)}}
-            type="number" className="mt-5 border-2 rounded-md" placeholder='Phone Number' value={phone}/>
+            type="number" className="mt-5 border-2 rounded-md ps-1" placeholder='Phone Number' value={phone}/>
              {phoneErr ? <span className="text-red-500 ">Enter phone number only  </span>: null}
        
        
@@ -272,7 +273,7 @@ function VehiclePayment(params) {
             // minDate={new Date(startDateInString)} 
             maxDate={new Date(endDateInString)} 
             minDate={new Date(new Date().getTime()-24*60*60*1000)}
-            inputClassName=" rounded-md  font-normal bg-white text-black w-full mt-5 h-8 border-2 " 
+            inputClassName=" rounded-md  font-normal bg-white text-black w-full mt-5 h-8 border-2 ps-1 " 
             disabledDates={bookedDays} 
           /> 
 
@@ -282,10 +283,11 @@ function VehiclePayment(params) {
         <textarea  
           value={comments}
           onChange={(e)=>{
-            let regex = /^[a-zA-Z ]{5,16}$/;
+            let regex = /^[a-zA-Z0-9\n]{5,100}$/;
             setCommentsErr(!regex.test(e.target.value));
             setComments(e.target.value)}}
-        cols="40" rows="5" className='mt-5 border-2 rounded-md' placeholder='Comments'></textarea>
+        cols="40" rows="5" 
+        className='mt-5 border-2 rounded-md ps-1' placeholder='Comments'></textarea>
          {commentsErr ? <span className="text-red-500 ">Enter Comments  </span>: null}
         <p className=" mt-2 text-slate-600">please review the final fare </p>
         <h1 className="text-right"> Rs.{finalRate} </h1>

@@ -89,7 +89,7 @@ useEffect(()=>{
 
 
   return (
-    <div>
+    <div >
       <HeroSection />
       <ContentHead carList={carList} setFilter={setFilter} getProductData={getProductData} setPageNumber={setPageNumber} pageNumber={pageNumber} pageCount={pageCount} />
       

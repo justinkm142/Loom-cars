@@ -11,7 +11,7 @@ function MyAccount(props) {
             props.setUserData({...props.userData, email:e.target.value})
         }}
         value={props?.userData?.email}
-        className='w-60 border-2' type='email'></input>
+        className='w-60 border-2 ps-1' type='email'></input>
       </div>
       <div className="flex pt-5">
         <p className='w-40'>Mobile</p>
@@ -19,7 +19,7 @@ function MyAccount(props) {
             props.setUserData({...props.userData, phone:e.target.value})
         }}
         value={props?.userData?.phone}
-        className='w-60 border-2' type='number'></input>
+        className='w-60 border-2 ps-1' type='number'></input>
       </div>
 
 
@@ -30,14 +30,14 @@ function MyAccount(props) {
             props.setUserData({...props.userData, name:e.target.value})
         }}
         value={props?.userData?.name}
-        className='w-60 border-2'></input>
+        className='w-60 border-2 ps-1'></input>
       </div>
       <div className="flex pt-5">
         <p className='w-40'>Gender</p>
         <select onChange={(e)=>{
             props.setUserData({...props.userData, gender:e.target.value})
         }}
-        name="" id="" className="w-40 border-2">
+        name="" id="" className="w-40 border-2 ps-1">
           <option value="">{props?.userData?.gender} </option>
           <option value="MALE">Male </option>
           <option value="FEMALE">Female </option>

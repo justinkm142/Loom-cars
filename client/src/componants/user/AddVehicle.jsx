@@ -176,7 +176,7 @@ function AddVehicle(props) {
               })
 
             }}
-            className="border col-span-2 rounded-md"
+            className="border col-span-2 rounded-md ps-1"
           ></input>
            {userInputError.CarNumberError ?  
             <p className='text-red-500'> Enter Vehicle Number </p> : null
@@ -203,7 +203,7 @@ function AddVehicle(props) {
                     return {...preValue, ...temp1 }
                   })
                 }}
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
               {userInputError.CarMakeError ?  
                 <p className='text-red-500'> Enter Vehicle Make </p> : null
@@ -231,7 +231,7 @@ function AddVehicle(props) {
                     return {...preValue, ...temp1 }
                   })                 
                 }}
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
               {userInputError.CarModelError ?  
                <p className='text-red-500'> Enter Vehicle Model </p> : null
@@ -260,7 +260,7 @@ function AddVehicle(props) {
                   }) 
                 }}
                 type='Number'
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
                {userInputError.ManufactureYearError ?  
                <p className='text-red-500'> Enter Manufacture Year </p> : null
@@ -289,7 +289,7 @@ function AddVehicle(props) {
 
                 }}
                 type='Number'
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
                {userInputError.KmsDrivenError ?  
                <p className='text-red-500'> Enter KM Driven </p> : null
@@ -383,7 +383,7 @@ function AddVehicle(props) {
 
                 }}
                 type='Number'
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
                 {userInputError.SeatCapacityError ?  
                <p className='text-red-500'> Enter Seating Capacity </p> : null
@@ -395,7 +395,7 @@ function AddVehicle(props) {
               <p className="col-span-1">Car Type </p>
              
              <select 
-              className=" col-span-2 rounded-md border "
+              className=" col-span-2 rounded-md border ps-1 "
               onChange={(e) => {
                 let temp = {};
                 temp['Category'] = e.target.value;
@@ -435,7 +435,7 @@ function AddVehicle(props) {
 
                 }}
                 type='Number'
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
 
                 {userInputError.ActualPriceError ?  
@@ -465,7 +465,7 @@ function AddVehicle(props) {
                   })
                 }}
                 type='Number'
-                className="border col-span-2 rounded-md"
+                className="border col-span-2 rounded-md ps-1"
               ></input>
                 {userInputError.RentingPriceError ?  
                <p className='text-red-500'> Enter Amont </p> : null

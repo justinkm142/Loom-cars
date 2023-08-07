@@ -162,14 +162,14 @@ useEffect(()=>{
       {disableInput ? 
         <input 
         disabled
-        className=' rounded h-8'type='number'
+        className=' rounded h-8 ps-1'type='number'
         value={phone}
         onChange={(e)=>setPhone(e.target.value)}
       ></input>
         :
         <input 
         
-        className=' rounded h-8'type='number'
+        className=' rounded h-8 ps-1'type='number'
         value={phone}
         onChange={(e)=>setPhone(e.target.value)}
       ></input>

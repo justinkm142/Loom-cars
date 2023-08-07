@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect  } from 'react'
 import {TiThMenuOutline} from 'react-icons/ti'
 import {GiGearStickPattern} from 'react-icons/gi'
 import {BsFuelPumpDieselFill , BsArrowLeft, BsArrowRight} from 'react-icons/bs'
@@ -11,6 +11,7 @@ import LazyLoad from 'react-lazy-load';
 function ContentHead(props) {
   const [index,setIndex] = useState(1)
   const navigate = useNavigate()
+  const focusedDivRef = useRef(null);
 
   const handleFilter = (selection)=>{
     let temp = selection
@@ -22,6 +23,9 @@ function ContentHead(props) {
 
   }
 
+  useEffect(() => {
+    focusedDivRef.current.focus();
+  }, []);
 
 
 
@@ -31,9 +35,9 @@ function ContentHead(props) {
    <div className=' bg-[#f5f5f5]'>
     <div className="mx-auto pt-7">
      <section className='bg-[#f5f5f5] flex justify-center'>
-            <div className=' w-28 '>
-              <div className='cursor-pointer' 
-              onClick={()=>{handleFilter("ALL")}} > 
+            <div className=' w-28 mx-1 '>
+              <div tabIndex={0} ref={focusedDivRef} className='cursor-pointer hover:scale-110 ease-in-out duration-300 outline-none hover:bg-slate-300 p-3 rounded-xl active:bg-slate-500 focus:bg-slate-300' 
+                onClick={()=>{handleFilter("ALL")}} > 
                 <div className="flex justify-center " > 
                 <TiThMenuOutline size={40} /> </div>
                 <p className='text-center'>All</p>
@@ -41,8 +45,8 @@ function ContentHead(props) {
 
             </div>
 
-            <div className='w-28'>
-              <div className="cursor-pointer" onClick={()=>handleFilter("AUTOMATIC")}>
+            <div className='w-28 mx-1'>
+              <div tabIndex={0} className="cursor-pointer hover:scale-110 ease-in-out duration-300 hover:bg-slate-300 p-3 rounded-xl active:bg-slate-500 focus:bg-slate-300" onClick={()=>handleFilter("AUTOMATIC")}>
                 <div className="flex justify-center " > 
                 <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/automatic-gearbox-automatic-2072600-3766385.png?f=avif&w=128" alt="logo" className="w-[40px]" />
                 {/* <GiGearStickPattern size={40} />  */}
@@ -53,8 +57,8 @@ function ContentHead(props) {
  
             </div>
 
-            <div className='w-28'>
-                <div className="cursor-pointer" onClick={()=>handleFilter("MANUAL")}>
+            <div className='w-28 mx-1'>
+                <div tabIndex={0} className="cursor-pointer hover:scale-110 ease-in-out duration-300 hover:bg-slate-300 p-3 rounded-xl active:bg-slate-500 focus:bg-slate-300" onClick={()=>handleFilter("MANUAL")}>
 
                   <div className="flex justify-center" >
                   <GiGearStickPattern size={40} /></div>
@@ -64,16 +68,16 @@ function ContentHead(props) {
   
             </div>
 
-            <div className='w-28'>
-                <div className="cursor-pointer" onClick={()=>handleFilter("DIESEL")} >
+            <div className='w-28 mx-1'>
+                <div tabIndex={0} className="cursor-pointer hover:scale-110 ease-in-out duration-300 hover:bg-slate-300 p-3 rounded-xl active:bg-slate-500 focus:bg-slate-300" onClick={()=>handleFilter("DIESEL")} >
                   <div className="flex justify-center"> <BsFuelPumpDieselFill size={40} /></div>
                   <p className='text-center'>Diesel</p> 
                 </div>
   
             </div>
 
-            <div className='w-28'>
-                <div className="cursor-pointer" onClick={()=>handleFilter("PETROL")}>
+            <div className='w-28 mx-1'>
+                <div tabIndex={0} className="cursor-pointer hover:scale-110 ease-in-out duration-300 hover:bg-slate-300 p-3 rounded-xl active:bg-slate-500 focus:bg-slate-300" onClick={()=>handleFilter("PETROL")}>
                   <div className="flex justify-center" > 
                   {/* <BsFuelPumpDieselFill size={40} />  */}
                   <img src="https://cdn.iconscout.com/icon/free/png-256/free-petrol-pump-fuel-gas-gasoline-station-service-3-2291.png?f=avif&w=128" alt="logo" className="w-[44px]" />
@@ -129,7 +133,7 @@ function ContentHead(props) {
 
 {/* Card One */}
     { props.carList[0] ?  
-        <div className="p-4 sm:w-64 md:w-52 lg:w-64 mx-0 sm:mx-0 cursor-pointer" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[0]?._id }`)}>
+        <div className="p-4 sm:w-64 md:w-52 lg:w-64 mx-0 sm:mx-0 cursor-pointer hover:scale-110 duration-200" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[0]?._id }`)}>
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-2xl overflow-hidden">
 
 
@@ -151,11 +155,16 @@ function ContentHead(props) {
             </div>
           </div>
         </div>
-      : null }
+      : <div className="py-10">
+
+          <h1 className='text-center font-bold text-6xl'> No Car Found!</h1>
+          <h1 className='text-center'> Please Choose Different Date</h1>
+
+      </div> }
 
 {/* Card two */}
     { props.carList[1] ?  
-        <div className="p-4 sm:w-64 md:w-52 lg:w-64 hidden sm:block cursor-pointer" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[1]?._id }`)}>
+        <div className="p-4 sm:w-64 md:w-52 lg:w-64 hidden sm:block cursor-pointer hover:scale-110 duration-200" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[1]?._id }`)}>
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-2xl overflow-hidden">
           <LazyLoad height={197}> 
             <img className="lg:h-48 md:h-36 sm:h-36 w-full object-cover object-center" src={props.carList[1]?.images[0].image_url} alt="blog"></img>
@@ -179,7 +188,7 @@ function ContentHead(props) {
 
   { props.carList[2] ?  
 
-        <div className="p-4 md:w-52 lg:w-64 hidden md:block cursor-pointer" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[2]?._id }`)}>
+        <div className="p-4 md:w-52 lg:w-64 hidden md:block cursor-pointer hover:scale-110 duration-200" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[2]?._id }`)}>
           <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-2xl overflow-hidden">
           <LazyLoad height={197}> 
             <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={props.carList[2]?.images[0].image_url} alt="blog"></img>
@@ -202,7 +211,7 @@ function ContentHead(props) {
 {/* Card Four */}
 
         { props.carList[3] ? 
-            <div className="p-4 hidden lg:block md:w-1/3 lg:w-64 cursor-pointer" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[3]?._id }`)}>
+            <div className="p-4 hidden lg:block md:w-1/3 lg:w-64 cursor-pointer hover:scale-110 duration-200" onClick={()=>navigate(`/user/vehicleDetails/${props.carList[3]?._id }`)}>
              <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-2xl overflow-hidden">
              <LazyLoad height={197}> 
                <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={props.carList[3]?.images[0].image_url} alt="blog"></img>

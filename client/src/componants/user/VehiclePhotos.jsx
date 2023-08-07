@@ -22,7 +22,7 @@ function VehiclePhotos(props) {
 
       }
      
-      <img src={props.photo[0]?.images[index]?.image_url} alt="car" className="h-full " />
+      <img  src={props.photo[0]?.images[index]?.image_url} alt="car" className="h-full " />
       
       
       

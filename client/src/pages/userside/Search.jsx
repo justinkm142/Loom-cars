@@ -104,7 +104,9 @@ function Search() {
       
       </div>
 
-      <div className=' w-full bg-[#f5f5f5]'> 
+      <div className=' w-full bg-[#f5f5f5] h-screen'> 
+
+      
       
       <ContentHead carList={carList} setFilter={setFilter} getProductData={getProductData} />
       

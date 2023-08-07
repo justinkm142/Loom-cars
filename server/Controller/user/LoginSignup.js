@@ -103,7 +103,7 @@ export const phoneNumberVerify  = async (req, res) => {
 
 export const userDetails = async (req, res) => {
   try {
-    const { userId } = req.query
+    const { userId } = req.query ?? {userId:"0"}  
 
     let result = await UserModel.find({ _id: userId }).exec();
     if (result.length == 0) {
