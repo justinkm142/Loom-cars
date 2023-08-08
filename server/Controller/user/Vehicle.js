@@ -127,47 +127,47 @@ export const carList_home = async (req, res) => {
     let pageCount = 0 
     let result;
     if (filter == "ALL") {
-      result = await CarModel.find({ isVerified: true })
+      result = await CarModel.find({ isVerified: true, carStatus:"Verified" })
         .skip(limit*pageNumber)
         .limit(limit)
         .exec();
-      pageCount = await CarModel.find({ isVerified: true }).count()
+      pageCount = await CarModel.find({ isVerified: true, carStatus:"Verified" }).count()
       pageCount = pageCount/limit
     } else if (filter == "AUTOMATIC") {
-      result = await CarModel.find({ transmission: filter, isVerified: true })
+      result = await CarModel.find({ transmission: filter, isVerified: true , carStatus:"Verified" })
       .skip(limit*pageNumber)
       .limit(limit)
         .exec();
-        pageCount = await CarModel.find({ transmission: filter, isVerified: true }).count()
+        pageCount = await CarModel.find({ transmission: filter, isVerified: true, carStatus:"Verified" }).count()
         pageCount = pageCount/limit
 
     } else if (filter == "MANUAL") {
-      result = await CarModel.find({ transmission: filter, isVerified: true })
+      result = await CarModel.find({ transmission: filter, isVerified: true, carStatus:"Verified" })
       .skip(limit*pageNumber)
       .limit(limit)
         .exec();
-        pageCount = await CarModel.find({ transmission: filter, isVerified: true }).count()
+        pageCount = await CarModel.find({ transmission: filter, isVerified: true, carStatus:"Verified" }).count()
         pageCount = pageCount/limit
     } else if (filter == "DIESEL") {
-      result = await CarModel.find({ fuelType: filter, isVerified: true })
+      result = await CarModel.find({ fuelType: filter, isVerified: true, carStatus:"Verified" })
       .skip(limit*pageNumber)
       .limit(limit)
         .exec();
-        pageCount = await CarModel.find({ fuelType: filter, isVerified: true }).count()
+        pageCount = await CarModel.find({ fuelType: filter, isVerified: true, carStatus:"Verified" }).count()
         pageCount = pageCount/limit
     } else if (filter == "PETROL") {
-      result = await CarModel.find({ fuelType: filter, isVerified: true })
+      result = await CarModel.find({ fuelType: filter, isVerified: true, carStatus:"Verified" })
       .skip(limit*pageNumber)
       .limit(limit)
         .exec();
-        pageCount = await CarModel.find({ fuelType: filter, isVerified: true }).count()
+        pageCount = await CarModel.find({ fuelType: filter, isVerified: true, carStatus:"Verified" }).count()
         pageCount = pageCount/limit
     } else {
-      result = await CarModel.find({ isVerified: true })
+      result = await CarModel.find({ isVerified: true, carStatus:"Verified" })
       .skip(limit*pageNumber)
       .limit(limit)
         .exec();
-        pageCount = await CarModel.find({ isVerified: true }).count()
+        pageCount = await CarModel.find({ isVerified: true, carStatus:"Verified" }).count()
         pageCount = pageCount/limit
 
     }
@@ -222,6 +222,7 @@ export const carList_search = async (req, res) => {
     if (filter == "ALL") {
       result = await CarModel.find({
         isVerified: true,
+        carStatus:"Verified",
         availableLocation: location,
         availableDates: {
           $elemMatch: {
@@ -244,6 +245,7 @@ export const carList_search = async (req, res) => {
       result = await CarModel.find({
         transmission: filter,
         isVerified: true,
+        carStatus:"Verified",
         availableLocation: location,
         availableDates: {
           $elemMatch: {
@@ -266,6 +268,7 @@ export const carList_search = async (req, res) => {
       result = await CarModel.find({
         fuelType: filter,
         isVerified: true,
+        carStatus:"Verified",
         availableLocation: location,
         availableDates: {
           $elemMatch: {
@@ -287,6 +290,7 @@ export const carList_search = async (req, res) => {
     } else {
       result = await CarModel.find({
         isVerified: true,
+        carStatus:"Verified",
         availableLocation: location,
       })
         // .limit(4 * pageNumber)
