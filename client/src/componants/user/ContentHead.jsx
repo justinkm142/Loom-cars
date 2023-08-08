@@ -243,7 +243,7 @@ function ContentHead(props) {
         onClick={()=>{
           props.setPageNumber(props.pageNumber + 1)
         
-          console.log("my name is ==")
+        
         }}
         className="my-auto w-16 mx-auto sm:mx-0  ">
           <div className="mx-auto my-auto border-2 hover:bg-slate-600 active:bg-slate-800 bg-slate-400 rounded-full cursor-pointer">

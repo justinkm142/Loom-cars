@@ -81,7 +81,7 @@ function AddVehicle(props) {
         }
         let token = localStorage.getItem("token");
         let decoded = jwt_decode(token);
-        console.log("user id is ", decoded.userId);
+        
         props.setLoading(true)
         let serverRespose = await axios({
           method: "post",
@@ -136,14 +136,13 @@ function AddVehicle(props) {
     };
 
     const checkBox = (e) => {
-      console.log(e.target.checked);
+      
       if (e.target.checked === true) {
         setFeature([...feature, e.target.value]);
       } else {
         const newArray = feature.filter((data) => data !== e.target.value);
         setFeature(newArray);
       }
-      console.log(feature);
     };
 
    
@@ -308,7 +307,7 @@ function AddVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+               
               }}
              >
                 <option selected >Choose Location</option>
@@ -332,7 +331,7 @@ function AddVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+                
               }}
              >
                 <option selected>Choose Fuel types</option>
@@ -353,7 +352,7 @@ function AddVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+               
               }}
              >
                 <option selected>Choose Transmission</option>
@@ -402,7 +401,7 @@ function AddVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+               
               }}
              >
                 <option selected>Choose Car Type</option>

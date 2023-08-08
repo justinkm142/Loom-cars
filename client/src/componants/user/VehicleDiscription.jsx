@@ -19,9 +19,9 @@ function VehicleDiscription(props) {
       </div>
       <div className="p-5 pt-0 pb-3 border-2 shadow-xl rounded-xl mx-6 mb-3 mt-1">
         <h1 className="title-font text-lg font-medium text-gray-900 underline"> Car Feactures </h1>
-          <div className='bg-white grid grid-cols-3 mt-3 ps-20 border-2 py-3 shadow-xl rounded-xl '> 
+          <div className='bg-white grid grid-cols-3 mt-3 md:ps-20 border-2 py-3 shadow-xl rounded-xl '> 
           {props.carDetails[0]?.feature.map((data)=>{
-            return <p className='flex items-center'><MdOutlineCarCrash /> <span className='ms-2'> {data}  </span> </p>
+            return <p className='flex items-center'><MdOutlineCarCrash /> <span className='md:ms-2'> {data}  </span> </p>
           })}
 
         </div>

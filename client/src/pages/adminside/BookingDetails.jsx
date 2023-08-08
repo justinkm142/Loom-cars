@@ -60,7 +60,7 @@ function BookingDetails() {
 
 
 
-console.log(bookingDetails)
+
 
 
 

@@ -89,7 +89,7 @@ function Host() {
         </div>
 
         {carList.map((data,index)=>{
-          console.log(data)
+          
           return  <HostedCars key={index} data={data} modal={setShowModal} carId={setCarId} setReload={setReload} reload={reload}  />
         })}
        

@@ -15,7 +15,6 @@ function Tables_booking(props) {
 
   const[otp,setOtp] =useState(0)
 
-console.log("user List in tables",props?.bookings)
 
 const handleCancel =(bookingId)=>{
   toast((t) => (
@@ -113,7 +112,7 @@ const handleConfirm = async (bookingId) => {
 
 const handleHandingOver =(bookingId,OTP,action) => {
 
-console.log(bookingId,OTP,action)
+
 
 toast((t) => (
   
@@ -130,7 +129,7 @@ toast((t) => (
 
     <button className='bg-red-500 w-20 h-10 rounded-lg '
     onClick={() => {
-      console.log("otp is ",otp, OTP )
+    
       if(otp==OTP){
         handingOver(bookingId,OTP,action)
         toast.dismiss(t.id)

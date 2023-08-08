@@ -20,7 +20,7 @@ function Modal_ActiveDays({visible,carId,modalClose,userId,getCarDetails}) {
   const [newDate, setNewDate] = useState({startDate: formattedStartDate, endDate: formattedEndDate });
  
   const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue); 
+    
     setNewDate(newValue); 
     } 
 
@@ -69,7 +69,7 @@ function Modal_ActiveDays({visible,carId,modalClose,userId,getCarDetails}) {
 
 
 
-    console.log("data is", newDate )
+    
 
 
   }

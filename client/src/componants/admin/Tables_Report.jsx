@@ -13,7 +13,7 @@ function Tables_Report(props) {
 
   const navigate =useNavigate()
 
-  console.log("user List in tables",props?.bookings)
+ 
 
   return (
     <div className="overflow-x-auto">

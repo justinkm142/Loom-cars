@@ -8,7 +8,7 @@ import React from "react";
 
 function Tables_wallet(props) {
 
-console.log("user List in tables",props?.bookings)
+
 
 
   return (

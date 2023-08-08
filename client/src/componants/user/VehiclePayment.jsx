@@ -106,7 +106,7 @@ function VehiclePayment(params) {
 
             const result = await axios.post(`${userBaseUrl}/paymentConfirm`, data);
 
-            console.log("razror pay output =>",result.data.bookingId )
+            
 
             toast.success('Vehicle Booked')
 
@@ -283,7 +283,7 @@ function VehiclePayment(params) {
         <textarea  
           value={comments}
           onChange={(e)=>{
-            let regex = /^[a-zA-Z0-9\n]{5,100}$/;
+            let regex = /^[a-zA-Z0-9 \n]{5,100}$/;
             setCommentsErr(!regex.test(e.target.value));
             setComments(e.target.value)}}
         cols="40" rows="5" 

@@ -21,7 +21,7 @@ function Search() {
 
     const [value, setValue] = useState({startDate: searchParams.get('startDate'), endDate: searchParams.get('endDate') }); 
     const handleValueChange = (newValue) => {
-      console.log("newValue:", newValue); 
+      
       setSearchParams({location:place, startDate:newValue.startDate,endDate:newValue.endDate})
       setValue(newValue); 
       } 
@@ -32,7 +32,7 @@ function Search() {
     useEffect(()=>{
         getProductData(filter)
         
-        console.log("serch param value",searchParams.get("location") )
+      
 
       },[])
 

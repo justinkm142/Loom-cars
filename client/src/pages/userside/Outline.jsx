@@ -24,7 +24,7 @@ function Outline() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    console.log("user effect in otlet called")
+    
     let token = localStorage.getItem("token");
     if(token){
       let decoded = jwt_decode(token);
@@ -51,7 +51,7 @@ function Outline() {
         // },
       });
       if (serverRespose.data.message == "sucess") {
-        console.log("user data from server",serverRespose.data.data )
+       
         setUserDeatils((pre) => {
           return {...serverRespose.data.data};
         });

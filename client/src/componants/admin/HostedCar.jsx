@@ -101,7 +101,6 @@ const disableCar = async (vehicleId)=>{
   
   
     const handleDisable = (vehicleId)=>{
-      console.log("dsvdsvddvsdv")
       toast.success("dvsdvdv")
       toast((t) => (
         <span>

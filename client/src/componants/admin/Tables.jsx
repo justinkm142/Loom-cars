@@ -8,7 +8,7 @@ import React from "react";
 
 function Tables(props) {
 
-console.log("user List in tables",props.users)
+
 
 
   return (

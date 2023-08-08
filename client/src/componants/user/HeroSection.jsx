@@ -14,7 +14,7 @@ function HeroSection() {
 
   const [value, setValue] = useState({startDate: new Date(), endDate: new Date().setMonth(11) }); 
   const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue); 
+    
     setStartDate(newValue.startDate);
     setEndDate(newValue.endDate);
     setValue(newValue); 

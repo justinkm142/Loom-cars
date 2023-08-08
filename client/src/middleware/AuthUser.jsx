@@ -38,7 +38,7 @@ export const UserDetails = ({children})=>{
             return children;
         }
         
-        console.log("decoded data =>",decoded) 
+        
         let userId = decoded.userId;
         let name= decoded.user;
         let email= decoded.email;

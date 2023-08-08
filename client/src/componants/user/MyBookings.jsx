@@ -127,7 +127,7 @@ function MyBookings(props) {
     };
 
 
-    console.log("props in booking page is ", props.bookingList._id)
+    
 
 
 

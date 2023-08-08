@@ -86,9 +86,7 @@ function EditVehicle(props) {
 
           setFeature([...serverRespose.data.result[0].feature])
 
-          console.log("vehicle data from server" , userInput)
-          console.log("vehicle feacture data from server" , feature)
-          console.log("vehicle feacture data from server" , serverRespose.data.result[0].feature)
+      
         } else {
           toast.error("Somthing Went Wrong!");
         }
@@ -141,7 +139,7 @@ function EditVehicle(props) {
         // }
         let token = localStorage.getItem("token");
         let decoded = jwt_decode(token);
-        console.log("user id is ", decoded.userId);
+        
         props.setLoading(true)
         let serverRespose = await axios({
           method: "patch",
@@ -195,14 +193,14 @@ function EditVehicle(props) {
     // };
 
     const checkBox = (e) => {
-      console.log(e.target.checked);
+      
       if (e.target.checked === true) {
         setFeature([...feature, e.target.value]);
       } else {
         const newArray = feature.filter((data) => data !== e.target.value);
         setFeature(newArray);
       }
-      console.log(feature);
+      
     };
 
    
@@ -373,7 +371,7 @@ function EditVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+             
               }}
              >
                 <option selected >Choose Location</option>
@@ -398,7 +396,7 @@ function EditVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+                
               }}
              >
                 <option selected>Choose Fuel types</option>
@@ -420,7 +418,7 @@ function EditVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+                
               }}
              >
                 <option selected>Choose Transmission</option>
@@ -471,7 +469,7 @@ function EditVehicle(props) {
                 setUserInput((preValue) => {
                   return { ...preValue, ...temp };
                 });
-                console.log(userInput);
+                
               }}
              >
                 <option selected>Choose Car Type</option>

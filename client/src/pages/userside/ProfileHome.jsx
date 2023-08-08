@@ -102,7 +102,7 @@ function ProfileHome() {
   };
   
 
-console.log("user Details ", userDetails)
+
 
   return (
     <div className='ps-10 bg-white pt-3 pb-3'>

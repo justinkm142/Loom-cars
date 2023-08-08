@@ -30,9 +30,9 @@ const handleLogOut = ()=>{
   const navigate= useNavigate()
   return (
     <div>
-      <div className="bg-[#f5f5f5] h-full  grid grid-cols-12 gap-2">
+      <div className="bg-[#f5f5f5] h-full  grid grid-cols-12 gap-2 ">
 
-        <div className="border-2  col-span-3 m-10 bg-white"> 
+        <div className="border-2  col-span-3 m-10 bg-white hidden md:block"> 
           <div className="w-full h-48 border-b-2 ">
                <div className=" flex flex-col justify-center items-center py-5">
 

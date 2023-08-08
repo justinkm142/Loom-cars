@@ -21,7 +21,7 @@ const getBookingData= async ()=>{
                 bookingId: bookingId,
             },
           });
-          console.log("server respnse  is ", serverRespose);
+         
           if (serverRespose.data.message == "sucess") {
             setBookingDeatils((pre) => {
               return {...serverRespose.data.result};

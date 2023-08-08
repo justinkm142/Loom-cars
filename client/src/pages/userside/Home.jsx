@@ -45,16 +45,16 @@ function Home() {
 useEffect(()=>{
   if(windowDimensions.width <= 640){
     setLimit(1)
-    console.log("screen dimen is ", windowDimensions, limit );
+   
   }else if(windowDimensions.width <= 768 ){
     setLimit(2)
-    console.log("screen dimen is ", windowDimensions, limit );
+    
   }else if(windowDimensions.width <= 1167 ){
     setLimit(3)
-    console.log("screen dimen is ", windowDimensions, limit );
+    
   }else{
     setLimit(4)
-    console.log("screen dimen is ", windowDimensions, limit );
+   
   }
 },[])
 

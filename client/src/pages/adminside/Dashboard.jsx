@@ -42,7 +42,7 @@ function Dashboard() {
         setTotalUser(serverRespose.data.totalUser)
         setTotalCar(serverRespose.data.totalCar)
         let graphData = serverRespose.data.graphData
-        console.log("grapgh data is ", graphData)
+        
         for (let key of graphData){
           setProfitGraph((prev)=>{
             prev[key._id.month-1] = key.totalAmount

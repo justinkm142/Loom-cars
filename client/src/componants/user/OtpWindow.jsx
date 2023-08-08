@@ -46,7 +46,7 @@ function OtpWindow() {
         phone:phone
       },
     });
-    console.log()
+    
     if (serverRespose.data.message == "sucess") {
 
       onSignup()
@@ -105,7 +105,7 @@ function OtpWindow() {
     window.confirmationResult
     .confirm(otp)
     .then(async (res)=>{
-      console.log(res)
+      
       getTokenFromServer()
       
     }).catch((err)=>{

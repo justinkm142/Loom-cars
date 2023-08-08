@@ -18,13 +18,13 @@ function UserNavbar(props) {
   //   }
 
   // },[])
-  console.log("user Details in nav bar " , userDetails)
+ 
   return (
     <header
       aria-label="Site Header"
       className="bg-black  border-zinc-700 border-b-2 h-[80px]"
     >
-      <div className=" max-w-screen-xl ">
+      <div className="w-full">
         <div className="flex h-16 items-center justify-between">
           <div className="flex md:items-center ">
             <div className="text-white p-4 cursor-pointer" onClick={()=>props.setModal(true)}>
@@ -61,7 +61,7 @@ function UserNavbar(props) {
                   target="_blank" rel="noopener noreferrer"
                   className="rounded-3xl bg-white px-5 py-2.5 text-sm font-medium md:text-[18px] text-black shadow"
                 >
-                  {userDetails.isHosted ? "Show my Cars": "Become a Host"}
+                  {userDetails?.isHosted ? "Show my Cars": "Become a Host"}
                   
                 </Link>
               </div>

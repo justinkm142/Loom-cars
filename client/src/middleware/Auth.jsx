@@ -10,7 +10,7 @@ export const AuthorizeAdmin = ({children})=>{
 
     let payload= token.split('.')[1];
     let decodedPayload= JSON.parse(window.atob(payload))
-    console.log("data after decode ",decodedPayload)
+    
     if(decodedPayload.role=="admin"){
       return children;
     }else{
@@ -26,7 +26,7 @@ export const ProtectPath = ({children})=>{
     if(token){
       let payload= token.split('.')[1];
       let decodedPayload= JSON.parse(window.atob(payload))
-      console.log("data after decode ",decodedPayload)
+     
       if(decodedPayload.role=="admin"){
         return <Navigate to={'/admin/dashboard'} replace={true}></Navigate> 
       }else{
